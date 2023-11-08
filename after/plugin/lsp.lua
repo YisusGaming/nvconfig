@@ -16,6 +16,13 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+lsp_zero.set_sign_icons({
+  error = '󰂭',
+  warn = '',
+  hint = '',
+  info = ''
+})
+
 require'mason'.setup({})
 require'mason-lspconfig'.setup({
     handlers = {
