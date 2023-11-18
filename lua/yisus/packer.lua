@@ -49,6 +49,13 @@ return require('packer').startup({function(use)
     }
 
     use 'andweeb/presence.nvim'
+
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional
+        },
+    }
 end,
 config = {
     git = {
