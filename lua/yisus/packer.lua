@@ -56,8 +56,13 @@ return require('packer').startup({function(use)
             'nvim-tree/nvim-web-devicons', -- optional
         },
     }
+
+    use {
+        'nvim-tree/nvim-web-devicons'
+    }
 end,
 config = {
+    max_jobs = 2,
     git = {
         clone_timeout = 800, -- Timeout, in seconds, for git clones
     }
