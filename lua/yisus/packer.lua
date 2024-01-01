@@ -60,6 +60,8 @@ return require('packer').startup({function(use)
     use {
         'nvim-tree/nvim-web-devicons'
     }
+
+    use "ellisonleao/gruvbox.nvim"
 end,
 config = {
     max_jobs = 2,
