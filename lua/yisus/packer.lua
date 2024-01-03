@@ -62,6 +62,8 @@ return require('packer').startup({function(use)
     }
 
     use "ellisonleao/gruvbox.nvim"
+
+    use 'j-hui/fidget.nvim'
 end,
 config = {
     max_jobs = 2,
