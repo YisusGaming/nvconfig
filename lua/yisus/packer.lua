@@ -63,6 +63,8 @@ return require('packer').startup({function(use)
 
     use "ellisonleao/gruvbox.nvim"
 
+    use 'Mofiqul/vscode.nvim'
+
     use 'j-hui/fidget.nvim'
 end,
 config = {
