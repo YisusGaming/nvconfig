@@ -1,6 +1,6 @@
 -- Lua:
 -- For dark theme (neovim's default)
-vim.o.background = 'dark'
+-- vim.o.background = 'dark'
 -- For light theme
 -- vim.o.background = 'light'
 
@@ -25,4 +25,4 @@ require('vscode').setup({
         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
     }
 })
-require('vscode').load()
+-- require('vscode').load()
