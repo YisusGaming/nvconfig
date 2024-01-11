@@ -66,6 +66,8 @@ return require('packer').startup({function(use)
     use 'Mofiqul/vscode.nvim'
 
     use 'j-hui/fidget.nvim'
+
+    use 'simrat39/rust-tools.nvim'
 end,
 config = {
     max_jobs = 2,
