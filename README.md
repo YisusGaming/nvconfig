@@ -1,3 +1,3 @@
 # Yisus' Neovim Config
 
-The Neovim configuration I use in my everyday. These configs are based in [ThePrimeagen](https://www.youtube.com/@ThePrimeagen)'s configs, just with a few tweaks.
+The Neovim configuration I use in my everyday. The base of these configs is inspired by [ThePrimeagen](https://www.youtube.com/@ThePrimeagen)'s config.
