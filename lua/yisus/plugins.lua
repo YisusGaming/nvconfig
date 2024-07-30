@@ -18,9 +18,15 @@ local plugins = {
         -- or                            , branch = '0.1.x',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
     },
-    { "catppuccin/nvim",      name = "catppuccin" },
-    { "akinsho/horizon.nvim" },
-    'nvim-treesitter/nvim-treesitter',
+    {
+        "catppuccin/nvim", name = "catppuccin"
+    },
+    {
+        "akinsho/horizon.nvim"
+    },
+    {
+        'nvim-treesitter/nvim-treesitter'
+    },
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
@@ -41,23 +47,77 @@ local plugins = {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
-    "NvChad/nvterm",
-    'andweeb/presence.nvim',
+    {
+        "NvChad/nvterm"
+    },
+    {
+        'andweeb/presence.nvim'
+    },
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
     },
-    'nvim-tree/nvim-web-devicons',
-    "ellisonleao/gruvbox.nvim",
-    'Mofiqul/vscode.nvim',
-    'j-hui/fidget.nvim',
-    'simrat39/rust-tools.nvim',
-    "EdenEast/nightfox.nvim",
+    {
+        'nvim-tree/nvim-web-devicons'
+    },
+    {
+        "ellisonleao/gruvbox.nvim"
+    },
+    {
+        'Mofiqul/vscode.nvim'
+    },
+    {
+        'j-hui/fidget.nvim'
+    },
+    {
+        'simrat39/rust-tools.nvim'
+    },
+    {
+        "EdenEast/nightfox.nvim"
+    },
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "mfussenegger/nvim-dap",
+    },
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        event = "VeryLazy",
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
+
+            dapui.setup()
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+        end
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-dap"
+        },
+        opts = {
+            handlers = {}
+        }
+    },
+    {
+        'nanozuki/tabby.nvim',
+        dependencies = 'nvim-tree/nvim-web-devicons',
     }
 }
 
