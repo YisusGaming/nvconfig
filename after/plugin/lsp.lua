@@ -1,4 +1,5 @@
 local lsp_zero = require('lsp-zero')
+local fidget = require('fidget')
 
 lsp_zero.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -18,6 +19,11 @@ lsp_zero.on_attach(function(client, bufnr)
         })
     end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
+    if vim.lsp.inlay_hint then
+        fidget.notify("Inlay hints enabled.")
+        vim.lsp.inlay_hint.enable(true, { 0 })
+    end
 end)
 
 lsp_zero.set_sign_icons({
