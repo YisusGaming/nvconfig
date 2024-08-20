@@ -118,6 +118,9 @@ local plugins = {
     {
         'nanozuki/tabby.nvim',
         dependencies = 'nvim-tree/nvim-web-devicons',
+    },
+    {
+        "Shatur/neovim-ayu"
     }
 }
 
