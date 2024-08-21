@@ -14,9 +14,13 @@ lsp_zero.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>ra", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("n", "<leader>ft", function()
-        vim.lsp.buf.format({
-            timeout_ms = 10000
-        })
+        if client.name == "rust_analyzer" then
+            vim.cmd(":RustFmt")
+        else
+            vim.lsp.buf.format({
+                timeout_ms = 10000
+            })
+        end
     end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 

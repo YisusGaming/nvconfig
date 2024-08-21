@@ -121,7 +121,15 @@ local plugins = {
     },
     {
         "Shatur/neovim-ayu"
-    }
+    },
+    {
+        "rbong/vim-flog",
+        lazy = true,
+        cmd = { "Flog", "Flogsplit", "Floggit" },
+        dependencies = {
+            "tpope/vim-fugitive",
+        },
+    },
 }
 
 local opts = {

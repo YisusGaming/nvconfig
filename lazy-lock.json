@@ -28,5 +28,7 @@
   "tabby.nvim": { "branch": "main", "commit": "8d0216f543c07a89897d1021213793ea7d8991a1" },
   "telescope.nvim": { "branch": "master", "commit": "7011eaae0ac1afe036e30c95cf80200b8dc3f21a" },
   "todo-comments.nvim": { "branch": "main", "commit": "8f45f353dc3649cb9b44cecda96827ea88128584" },
+  "vim-flog": { "branch": "master", "commit": "658f9889435442c78493ccbae1fd7ffc212bec8a" },
+  "vim-fugitive": { "branch": "master", "commit": "0444df68cd1cdabc7453d6bd84099458327e5513" },
   "vscode.nvim": { "branch": "main", "commit": "f6c88cdf9d37d5c0bb1e492a13a3b4b4cc4dd13e" }
 }
