@@ -44,7 +44,7 @@ require 'mason-lspconfig'.setup({
     }
 })
 
-lsp_zero.setup_servers({ 'lua_ls', 'rust_analyzer', 'clangd', 'tsserver' })
+lsp_zero.setup_servers({ 'lua_ls', 'rust_analyzer', 'clangd', 'ts_ls' })
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
