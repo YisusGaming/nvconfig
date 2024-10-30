@@ -48,7 +48,10 @@ local plugins = {
                 -- Instead of true it can also be a list of languages
                 additional_vim_regex_highlighting = false,
             },
-        }
+        },
+        config = function()
+            vim.cmd.TSEnable("highlight")
+        end
     },
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -117,7 +120,7 @@ local plugins = {
     {
         "folke/todo-comments.nvim",
         config = function()
-            require'todo-comments'.setup()
+            require 'todo-comments'.setup()
 
             vim.keymap.set("n", "<leader>td", vim.cmd.TodoTelescope)
         end,
@@ -161,7 +164,18 @@ local plugins = {
             "tpope/vim-fugitive",
         },
     },
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+        config = function()
+            require("ibl").setup()
+        end
+    }
 }
-
 
 require("lazy").setup(plugins, { concurrency = 2 })
