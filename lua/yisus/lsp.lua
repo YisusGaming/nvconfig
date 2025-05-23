@@ -3,6 +3,7 @@ local fidget = require('fidget')
 
 lsp_zero.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
+    client.config.capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
     vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -44,7 +45,7 @@ require 'mason-lspconfig'.setup({
     }
 })
 
-lsp_zero.setup_servers({ 'lua_ls', 'rust_analyzer', 'clangd', 'ts_ls' })
+lsp_zero.setup_servers({ 'lua_ls', 'rust_analyzer', 'clangd', 'ts_ls', 'csharp_ls' })
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -77,7 +78,13 @@ local kind_icons = {
     TypeParameter = "󰅲",
 }
 
+
 cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),

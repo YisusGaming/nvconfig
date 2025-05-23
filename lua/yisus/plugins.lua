@@ -129,6 +129,9 @@ local plugins = {
     {
         "mfussenegger/nvim-dap",
         lazy = true,
+        config = function()
+            require 'yisus.nvim-dap'
+        end,
         cmd = { "DapContinue", "DapToggleBreakpoint" },
         dependencies = { "rcarriga/nvim-dap-ui" },
     },
