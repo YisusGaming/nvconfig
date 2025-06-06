@@ -13,6 +13,17 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        lazy = false,
+        priority = 1000,
+        opts = require 'yisus.configs.catppuccin',
+        config = function()
+            vim.cmd.colorscheme "catppuccin"
+        end
+    },
+
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.4',
         -- or                            , branch = '0.1.x',
@@ -25,54 +36,27 @@ local plugins = {
             vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
         end
     },
-    { "catppuccin/nvim", name = "catppuccin" },
     {
         'nvim-treesitter/nvim-treesitter',
-        opts = {
-            -- A list of parser names, or "all" (the five listed parsers should always be installed)
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
-
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
-
-            highlight = {
-                enable = true,
-
-                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                -- Instead of true it can also be a list of languages
-                additional_vim_regex_highlighting = false,
-            },
-        },
+        opts = require 'yisus.configs.treesitter',
         config = function()
             vim.cmd.TSEnable("highlight")
         end
     },
-    {
-        'VonHeikemen/lsp-zero.nvim',
-        event = "VeryLazy",
-        config = function()
-            require 'yisus.lsp'
-        end,
-        branch = 'v3.x',
-        dependencies = {
-            --- Uncomment these if you want to manage LSP servers from neovim
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
 
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'L3MON4D3/LuaSnip' },
+    {
+        'neovim/nvim-lspconfig',
+        event = "InsertEnter",
+        config = function() require 'yisus.lsp' end,
+        dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+            'hrsh7th/nvim-cmp',
+            'hrsh7th/cmp-nvim-lsp',
+            'L3MON4D3/LuaSnip',
         }
     },
+
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -82,9 +66,19 @@ local plugins = {
             }
         }
     },
-    { "NvChad/nvterm" },
+    {
+        "NvChad/nvterm",
+        config = function()
+            require 'nvterm'.setup(require 'yisus.configs.nvterm')
+            local terminal = require 'nvterm.terminal'
+
+            vim.keymap.set("n", "<A-0>", function() terminal.toggle('float') end)
+            vim.keymap.set("t", "<A-0>", function() terminal.toggle('float') end)
+        end
+    },
     {
         'nvim-tree/nvim-tree.lua',
+        lazy = true,
         dependencies = {
             'nvim-tree/nvim-web-devicons',
         },
@@ -96,29 +90,8 @@ local plugins = {
         opts = {}
     },
     {
-        'simrat39/rust-tools.nvim',
-        lazy = true,
-        ft = "rust",
-        config = function()
-            local rt = require("rust-tools")
-
-            rt.setup({
-                server = {
-                    on_attach = function(_, bufnr)
-                        -- Hover actions
-                        vim.keymap.set("n", "<leader>a", rt.hover_actions.hover_actions, { buffer = bufnr })
-                    end,
-                },
-                tools = {
-                    hover_actions = {
-                        auto_focus = true,
-                    },
-                },
-            })
-        end
-    },
-    {
         "folke/todo-comments.nvim",
+        lazy = true,
         config = function()
             require 'todo-comments'.setup()
 
@@ -127,36 +100,8 @@ local plugins = {
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
-        "mfussenegger/nvim-dap",
-        lazy = true,
-        config = function()
-            require 'yisus.nvim-dap'
-        end,
-        cmd = { "DapContinue", "DapToggleBreakpoint" },
-        dependencies = { "rcarriga/nvim-dap-ui" },
-    },
-    {
-        lazy = true,
-        "rcarriga/nvim-dap-ui",
-        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-        config = function()
-            local dap = require("dap")
-            local dapui = require("dapui")
-
-            dapui.setup()
-            dap.listeners.after.event_initialized["dapui_config"] = function()
-                dapui.open()
-            end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close()
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close()
-            end
-        end
-    },
-    {
         'nanozuki/tabby.nvim',
+        opts = require 'yisus.configs.tabby',
         dependencies = 'nvim-tree/nvim-web-devicons',
     },
     {

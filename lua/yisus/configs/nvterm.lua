@@ -1,4 +1,4 @@
-require 'nvterm'.setup({
+local M = {
     terminals = {
         shell = 'bash',
         type_opts = {
@@ -10,9 +10,6 @@ require 'nvterm'.setup({
             }
         }
     }
-})
+}
 
-local termial = require("nvterm.terminal")
-
-vim.keymap.set("n", "<leader>m", function() termial.toggle('float') end)
-vim.keymap.set("t", "<leader>m", function() termial.toggle('float') end)
+return M
