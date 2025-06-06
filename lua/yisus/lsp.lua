@@ -42,7 +42,8 @@ require 'mason-lspconfig'.setup({
     automatic_enable = true
 })
 
-vim.lsp.enable({ 'lua_ls', 'rust_analyzer', 'clangd', 'ts_ls', 'csharp_ls' })
+local servers = { 'lua_ls', 'rust_analyzer', 'clangd', 'ts_ls', 'csharp_ls', 'zls' }
+vim.lsp.enable(servers)
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -75,7 +76,6 @@ local kind_icons = {
     TypeParameter = "󰅲",
 }
 
-
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -107,6 +107,17 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<C-Space>'] = cmp.mapping.complete(),
     }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' }
+    })
 })
+
+local cmp_capabilities = require 'cmp_nvim_lsp'.default_capabilities()
+for _, s in ipairs(servers) do
+    vim.lsp.config(s, {
+        capabilities = cmp_capabilities
+    })
+end
 
 vim.cmd.e "%"
