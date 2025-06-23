@@ -15,14 +15,22 @@ local plugins = {
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = false,
+        lazy = true,
         priority = 1000,
         opts = require 'yisus.configs.catppuccin',
         config = function()
             vim.cmd.colorscheme "catppuccin"
         end
     },
-
+    {
+        "EdenEast/nightfox.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require 'nightfox'.setup(require 'yisus.configs.nightfox')
+            vim.cmd.colorscheme "carbonfox"
+        end
+    },
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.4',
@@ -46,7 +54,7 @@ local plugins = {
 
     {
         'neovim/nvim-lspconfig',
-        event = "InsertEnter",
+        event = "BufEnter",
         config = function() require 'yisus.lsp' end,
         dependencies = {
             'williamboman/mason.nvim',
@@ -60,11 +68,7 @@ local plugins = {
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {
-            options = {
-                theme = 'auto'
-            }
-        }
+        config = require 'yisus.configs.lualine'
     },
     {
         "NvChad/nvterm",
@@ -123,7 +127,29 @@ local plugins = {
         config = function()
             require("ibl").setup()
         end
-    }
+    },
+    {
+        'simrat39/rust-tools.nvim',
+        lazy = true,
+        ft = "rust",
+        config = function()
+            local rt = require("rust-tools")
+
+            rt.setup({
+                server = {
+                    on_attach = function(_, bufnr)
+                        -- Hover actions
+                        vim.keymap.set("n", "<leader>a", rt.hover_actions.hover_actions, { buffer = bufnr })
+                    end,
+                },
+                tools = {
+                    hover_actions = {
+                        auto_focus = true,
+                    },
+                },
+            })
+        end
+    },
 }
 
 require("lazy").setup(plugins, { concurrency = 2 })
