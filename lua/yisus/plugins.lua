@@ -28,7 +28,7 @@ local plugins = {
         priority = 1000,
         config = function()
             require 'nightfox'.setup(require 'yisus.configs.nightfox')
-            vim.cmd.colorscheme "carbonfox"
+            vim.cmd.colorscheme "duskfox"
         end
     },
     {
@@ -36,13 +36,7 @@ local plugins = {
         tag = '0.1.4',
         -- or                            , branch = '0.1.x',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            local builtin = require('telescope.builtin')
-            vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-            vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-            vim.keymap.set('n', '<leader>di', builtin.diagnostics, {})
-            vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
-        end
+        config = require 'yisus.configs.telescope'
     },
     {
         'nvim-treesitter/nvim-treesitter',
@@ -54,8 +48,11 @@ local plugins = {
 
     {
         'neovim/nvim-lspconfig',
-        event = "BufEnter",
-        config = function() require 'yisus.lsp' end,
+        lazy = true,
+        config = function()
+            require 'yisus.lsp'
+        end,
+        keys = { { "<leader>l", "<cmd>e<cr>", desc = "Load LSP" } },
         dependencies = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
@@ -95,8 +92,9 @@ local plugins = {
     },
     {
         "folke/todo-comments.nvim",
-        lazy = true,
-        config = function()
+        event        = "BufEnter",
+        lazy         = true,
+        config       = function()
             require 'todo-comments'.setup()
 
             vim.keymap.set("n", "<leader>td", vim.cmd.TodoTelescope)

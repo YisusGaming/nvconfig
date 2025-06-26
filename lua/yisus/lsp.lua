@@ -7,8 +7,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             capabilities = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false } } }
         })
 
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
         vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -18,15 +16,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
         vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
         vim.keymap.set("n", "<leader>ra", function() vim.lsp.buf.rename() end, opts)
-        vim.keymap.set("n", "<leader>ft", function()
-            if client.name == "rust_analyzer" then
-                vim.cmd(":RustFmt")
-            else
-                vim.lsp.buf.format({
-                    timeout_ms = 10000
-                })
-            end
-        end, opts)
+        vim.keymap.set("n", "<leader>ft", function() vim.lsp.buf.format({ timeout_ms = 10000 }) end, opts)
 
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
@@ -149,5 +139,3 @@ for _, s in ipairs(servers) do
         capabilities = cmp_capabilities
     })
 end
-
-vim.cmd.e "%"
