@@ -14,7 +14,7 @@ require("nvim-tree").setup {
         side = "left",
         width = 30,
         float = {
-            enable = true,
+            enable = false,
             quit_on_focus_loss = true,
             open_win_config = {
                 relative = "editor",
@@ -31,7 +31,7 @@ require("nvim-tree").setup {
         show_on_dirs = true,
         show_on_open_dirs = true,
         disable_for_dirs = {},
-        timeout = 5000,
+        timeout = 8000,
         cygwin_support = false,
     },
     renderer = {

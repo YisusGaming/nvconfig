@@ -16,7 +16,7 @@ local plugins = {
         "catppuccin/nvim",
         name = "catppuccin",
         lazy = true,
-        priority = 1000,
+        -- priority = 1000,
         opts = require 'yisus.configs.catppuccin',
         config = function()
             vim.cmd.colorscheme "catppuccin"
@@ -24,11 +24,21 @@ local plugins = {
     },
     {
         "EdenEast/nightfox.nvim",
-        lazy = false,
-        priority = 1000,
+        lazy = true,
+        -- priority = 1000,
         config = function()
             require 'nightfox'.setup(require 'yisus.configs.nightfox')
             vim.cmd.colorscheme "duskfox"
+        end
+    },
+    {
+        "Shatur/neovim-ayu",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            local ayu = require 'ayu'
+            ayu.setup({ mirage = false })
+            ayu.colorscheme()
         end
     },
     {
