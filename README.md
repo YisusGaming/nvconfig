@@ -11,3 +11,6 @@ Keep in mind that it is not documented either, and if you want to figure out rem
 # Screenshots
 Tag: v5.4.1
 ![screenshot](assets/screenshot-5.4.1.png)
+
+Tag: v5.5.0
+![screenshot](assets/screenshot-5.5.0.png)

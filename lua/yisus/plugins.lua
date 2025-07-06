@@ -33,12 +33,21 @@ local plugins = {
     },
     {
         "Shatur/neovim-ayu",
-        lazy = false,
-        priority = 1000,
+        lazy = true,
+        -- priority = 1000,
         config = function()
             local ayu = require 'ayu'
             ayu.setup({ mirage = false })
             ayu.colorscheme()
+        end
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function()
+            vim.cmd.colorscheme "tokyonight-night"
         end
     },
     {
@@ -53,6 +62,7 @@ local plugins = {
         opts = require 'yisus.configs.treesitter',
         config = function()
             vim.cmd.TSEnable("highlight")
+            vim.cmd.TSEnable("indent")
         end
     },
 
@@ -113,7 +123,11 @@ local plugins = {
     },
     {
         'nanozuki/tabby.nvim',
-        opts = require 'yisus.configs.tabby',
+        config = function()
+            require'tabby'.setup(require 'yisus.configs.tabby')
+
+            vim.keymap.set("n", "<leader>ts", "<cmd>Tabby pick_window<CR>")
+        end,
         dependencies = 'nvim-tree/nvim-web-devicons',
     },
     {

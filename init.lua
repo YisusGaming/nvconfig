@@ -14,7 +14,7 @@ require("nvim-tree").setup {
         side = "left",
         width = 30,
         float = {
-            enable = false,
+            enable = true,
             quit_on_focus_loss = true,
             open_win_config = {
                 relative = "editor",
